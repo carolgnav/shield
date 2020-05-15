@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load shield_filters %}
+
+{% block title %} Amenazas conocidas {% endblock %}
+{% block content %}
+
+
+<table class = "table">
+    <thead>
+        <tr>
+            <th> Nombre </th>
+            <th> Equipo </th>
+            <th> Poderes </th>
+        </tr>
+    <thead>
+
+{% for mh in items %}
+    <tr>
+        <td> {{ mh.name }} </td>
+        
+        <td> 
+            <a href="{% url 'teams' %}">
+            {{ mh.team | default:"N/A"  }}</a>
+        </td>
+        <td> 
+            {% for power in mh.powers.all %}
+                {% if forloop.last %}
+                    {{ power.name }}
+                {% else %}
+                    {{ power.name }},
+                {% endif %}
+            {% endfor %}
+             
+        </td>
+    </tr>
+    {% endfor %}
+
+        
+</table>
+
+{% endblock content %}
